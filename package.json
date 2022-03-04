@@ -7,7 +7,7 @@
     "test": "nodemon src/app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ricardo Mantilla",
   "license": "ISC",
   "dependencies": {
     "ejs": "^3.1.5",
