@@ -1,40 +1,42 @@
 const Sequelize = require("sequelize");
-const sequelize = require("../../database");
 
-const cols = {
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  title: {
-    type: Sequelize.STRING,
-  },
-  number: {
-    type: Sequelize.INTEGER,
-  },
-  releaseDate: {
-    type: Sequelize.DATE,
-    allowNull: false,
-  },
-  endDate: {
-    type: Sequelize.DATE,
-    allowNull: false,
-  },
-  serieId: {
-    type: Sequelize.INTEGER,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-  },
-};
-const config = {
-  tableName: "seasons",
-};
+const Season = (sequelize, dataTypes) => {
+  const cols = {
+    id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    title: {
+      type: Sequelize.STRING,
+    },
+    number: {
+      type: Sequelize.INTEGER,
+    },
+    release_date: {
+      type: Sequelize.DATE,
+      allowNull: false,
+    },
+    end_date: {
+      type: Sequelize.DATE,
+      allowNull: false,
+    },
+    serie_id: {
+      type: Sequelize.INTEGER,
+    },
+    created_at: {
+      type: Sequelize.DATE,
+    },
+    updated_at: {
+      type: Sequelize.DATE,
+    },
+  };
+  const config = {
+    tableName: "seasons",
+    timestamps: false,
+  };
 
-const Season = sequelize.define("Season", cols, config);
+  return sequelize.define("Season", cols, config);
+};
 
 module.exports = Season;

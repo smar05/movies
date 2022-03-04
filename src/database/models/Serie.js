@@ -1,37 +1,39 @@
 const Sequelize = require("sequelize");
-const sequelize = require("../../database");
 
-const cols = {
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  title: {
-    type: Sequelize.STRING,
-  },
-  releaseDate: {
-    type: Sequelize.DATE,
-    allowNull: false,
-  },
-  endDate: {
-    type: Sequelize.DATE,
-    allowNull: false,
-  },
-  genreId: {
-    type: Sequelize.INTEGER,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-  },
-};
-const config = {
-  tableName: "series",
-};
+const Serie = (sequelize, dataTypes) => {
+  const cols = {
+    id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    title: {
+      type: Sequelize.STRING,
+    },
+    release_date: {
+      type: Sequelize.DATE,
+      allowNull: false,
+    },
+    end_date: {
+      type: Sequelize.DATE,
+      allowNull: false,
+    },
+    genre_id: {
+      type: Sequelize.INTEGER,
+    },
+    created_at: {
+      type: Sequelize.DATE,
+    },
+    updated_at: {
+      type: Sequelize.DATE,
+    },
+  };
+  const config = {
+    tableName: "series",
+    timestamps: false,
+  };
 
-const Serie = sequelize.define("Serie", cols, config);
+  return sequelize.define("Serie", cols, config);
+};
 
 module.exports = Serie;

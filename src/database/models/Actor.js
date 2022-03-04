@@ -1,37 +1,39 @@
 const Sequelize = require("sequelize");
-const sequelize = require("../../database");
 
-const cols = {
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  firsName: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  lastName: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  rating: {
-    type: Sequelize.DECIMAL,
-  },
-  favoriteMovieId: {
-    type: Sequelize.INTEGER,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-  },
-};
-const config = {
-  tableName: "actors",
-};
+const Actor = (sequelize, dataTypes) => {
+  const cols = {
+    id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    firs_name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    last_name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    rating: {
+      type: Sequelize.DECIMAL,
+    },
+    favorite_movie_id: {
+      type: Sequelize.INTEGER,
+    },
+    created_at: {
+      type: Sequelize.DATE,
+    },
+    updated_at: {
+      type: Sequelize.DATE,
+    },
+  };
+  const config = {
+    tableName: "actors",
+    timestamps: false,
+  };
 
-const Actor = sequelize.define("Actor", cols, config);
+  return sequelize.define("Actor", cols, config);
+};
 
 module.exports = Actor;

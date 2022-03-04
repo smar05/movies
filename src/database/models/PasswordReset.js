@@ -1,23 +1,25 @@
 const Sequelize = require("sequelize");
-const sequelize = require("../../database");
 
-const cols = {
-  email: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  token: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-  },
-};
-const config = {
-  tableName: "password_resets",
-};
+const PasswordReset = (sequelize, dataTypes) => {
+  const cols = {
+    email: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    token: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    created_at: {
+      type: Sequelize.DATE,
+    },
+  };
+  const config = {
+    tableName: "password_resets",
+    timestamps: false,
+  };
 
-const PasswordReset = sequelize.define("PasswordReset", cols, config);
+  return sequelize.define("PasswordReset", cols, config);
+};
 
 module.exports = PasswordReset;
