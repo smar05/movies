@@ -48,9 +48,33 @@ const recomended = async (req, res) => {
   res.render("../views/recommendedMovies.ejs", { movies });
 };
 
+const add = (req, res) => {
+  res.render("../views/moviesAdd.ejs");
+};
+
+const create = async (req, res) => {
+  let { title, rating, awards, release_date, length } = req.body;
+
+  try {
+    await db.Movie.create({
+      title,
+      rating,
+      awards,
+      release_date,
+      length,
+      created_at: Date.now(),
+      updated_at: Date.now(),
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 module.exports = {
   list,
   detail,
   newesMovies,
   recomended,
+  add,
+  create,
 };
