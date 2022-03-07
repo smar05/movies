@@ -70,6 +70,58 @@ const create = async (req, res) => {
   }
 };
 
+const edit = async (req, res) => {
+  let id = req.params.id;
+  if (id) {
+    try {
+      let movie = await db.Movie.findByPk(id);
+      movie.release_date = movie.release_date.valueOf();
+
+      return res.render("../views/moviesEdit.ejs", { movie });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  return res.redirect("../views/moviesAdd.ejs");
+};
+
+const update = async (req, res) => {
+  let id = req.params.id;
+  let { title, rating, awards, release_date, length } = req.body;
+
+  if (id) {
+    try {
+      await db.Movie.update(
+        {
+          title,
+          rating,
+          awards,
+          release_date,
+          length,
+          updated_at: Date.now(),
+        },
+        {
+          where: { id },
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
+
+const deleteMovie = async (req, res) => {
+  let id = req.params.id;
+  if (id) {
+    try {
+      await db.Movie.destroy({ where: { id: id } });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
+
 module.exports = {
   list,
   detail,
@@ -77,4 +129,7 @@ module.exports = {
   recomended,
   add,
   create,
+  edit,
+  update,
+  deleteMovie,
 };

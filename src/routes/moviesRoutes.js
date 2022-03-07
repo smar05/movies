@@ -17,11 +17,18 @@ router.get("/movies/new", moviesController.newesMovies);
 router.get("/movies/recommended", moviesController.recomended);
 router.get("/movies/detail/:id", moviesController.detail);
 router.get("/movies/add", moviesController.add);
+router.get("/movies/edit/:id", moviesController.edit);
 
 router.post(
   "/movies/create",
   validateMoviesAddNoEmpty,
   moviesController.create
 );
+router.post(
+  "/movies/update/:id",
+  validateMoviesAddNoEmpty,
+  moviesController.update
+);
+router.post("movies/delete/:id", moviesController.deleteMovie);
 
 module.exports = router;
