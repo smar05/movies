@@ -48,12 +48,17 @@ const recomended = async (req, res) => {
   res.render("../views/recommendedMovies.ejs", { movies });
 };
 
-const add = (req, res) => {
-  res.render("../views/moviesAdd.ejs");
+const add = async (req, res) => {
+  try {
+    listGenres = await db.Genre.findAll();
+  } catch (error) {
+    console.error(error);
+  }
+  res.render("../views/moviesAdd.ejs", { listGenres });
 };
 
 const create = async (req, res) => {
-  let { title, rating, awards, release_date, length } = req.body;
+  let { title, rating, awards, release_date, length, genre } = req.body;
 
   try {
     await db.Movie.create({
@@ -62,6 +67,7 @@ const create = async (req, res) => {
       awards,
       release_date,
       length,
+      genre_id: genre,
       created_at: Date.now(),
       updated_at: Date.now(),
     });
