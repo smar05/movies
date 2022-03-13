@@ -48,9 +48,88 @@ const recomended = async (req, res) => {
   res.render("../views/recommendedMovies.ejs", { movies });
 };
 
+const add = (req, res) => {
+  res.render("../views/moviesAdd.ejs");
+};
+
+const create = async (req, res) => {
+  let { title, rating, awards, release_date, length } = req.body;
+
+  try {
+    await db.Movie.create({
+      title,
+      rating,
+      awards,
+      release_date,
+      length,
+      created_at: Date.now(),
+      updated_at: Date.now(),
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const edit = async (req, res) => {
+  let id = req.params.id;
+  if (id) {
+    try {
+      let movie = await db.Movie.findByPk(id);
+      movie.release_date = movie.release_date.valueOf();
+
+      return res.render("../views/moviesEdit.ejs", { movie });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  return res.redirect("../views/moviesAdd.ejs");
+};
+
+const update = async (req, res) => {
+  let id = req.params.id;
+  let { title, rating, awards, release_date, length } = req.body;
+
+  if (id) {
+    try {
+      await db.Movie.update(
+        {
+          title,
+          rating,
+          awards,
+          release_date,
+          length,
+          updated_at: Date.now(),
+        },
+        {
+          where: { id },
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
+
+const deleteMovie = async (req, res) => {
+  let id = req.params.id;
+  if (id) {
+    try {
+      await db.Movie.destroy({ where: { id: id } });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
+
 module.exports = {
   list,
   detail,
   newesMovies,
   recomended,
+  add,
+  create,
+  edit,
+  update,
+  deleteMovie,
 };
