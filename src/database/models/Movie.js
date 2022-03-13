@@ -44,4 +44,19 @@ const Movie = (sequelize, dataTypes) => {
   return sequelize.define("Movie", cols, config);
 };
 
+Movie.associate = (models) => {
+  Movie.belongsTo(models.Genre, {
+    as: "Genre",
+    foreignKey: "genre_id",
+  });
+
+  Movie.belongsToMany(models.Actor, {
+    as: "Actor",
+    through: "actor_movie",
+    foreignKey: "genre_id",
+    otherKey: "actor_id",
+    timestamps: false,
+  });
+};
+
 module.exports = Movie;
