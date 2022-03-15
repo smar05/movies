@@ -78,18 +78,28 @@ const create = async (req, res) => {
 
 const edit = async (req, res) => {
   let id = req.params.id;
+  let movie = {};
+  let listGenres = [];
+
   if (id) {
     try {
-      let movie = await db.Movie.findByPk(id);
+      movie = await db.Movie.findByPk(id, {
+        include: [
+          {
+            model: db.Genre,
+            as: "Genre",
+          },
+        ],
+      });
+      listGenres = await db.Genre.findAll();
       movie.release_date = movie.release_date.valueOf();
-
-      return res.render("../views/moviesEdit.ejs", { movie });
     } catch (error) {
       console.error(error);
     }
   }
 
-  return res.redirect("../views/moviesAdd.ejs");
+  console.log(movie);
+  return res.render("../views/moviesEdit.ejs", { movie, listGenres });
 };
 
 const update = async (req, res) => {

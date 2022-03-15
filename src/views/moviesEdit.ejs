@@ -64,6 +64,18 @@
             required
           />
         </p>
+        <label for="genre">Genre</label>
+        <p>
+          <select name="genre" id="">            
+            <% listGenres.forEach(genre => { %>
+            <option value="<%= genre.id %>" 
+              <% if (movie.genre_id == genre.id) { %>
+               selected
+              <% } %>
+              ><%= genre.name %></option>
+            <% }) %>
+          </select>
+        </p>
         <br />
         <p>
           <button class="botonAgregar" type="submit">Actualizar</button>
