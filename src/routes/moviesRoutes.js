@@ -4,6 +4,7 @@ const moviesController = require("../controllers/moviesController");
 const functions = require("../functions/functions.js");
 
 const baseUrl = "/movies";
+const apiBaseUrl = `/api${baseUrl}`;
 
 //Validaciones
 const validateMoviesAddNoEmpty = functions.notEmpty([
@@ -33,5 +34,9 @@ router.post(
   moviesController.update
 );
 router.post(`${baseUrl}/delete/:id`, moviesController.deleteMovie);
+
+//Api routes
+router.get(apiBaseUrl, moviesController.apiList);
+router.get(`${apiBaseUrl}/detail/:id`, moviesController.apiDetail);
 
 module.exports = router;
