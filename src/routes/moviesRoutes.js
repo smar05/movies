@@ -3,6 +3,9 @@ const router = express.Router();
 const moviesController = require("../controllers/moviesController");
 const functions = require("../functions/functions.js");
 
+const baseUrl = "/movies";
+const apiBaseUrl = `/api${baseUrl}`;
+
 //Validaciones
 const validateMoviesAddNoEmpty = functions.notEmpty([
   "title",
@@ -10,25 +13,30 @@ const validateMoviesAddNoEmpty = functions.notEmpty([
   "awards",
   "release_date",
   "length",
+  "genre",
 ]);
 
-router.get("/movies", moviesController.list);
-router.get("/movies/new", moviesController.newesMovies);
-router.get("/movies/recommended", moviesController.recomended);
-router.get("/movies/detail/:id", moviesController.detail);
-router.get("/movies/add", moviesController.add);
-router.get("/movies/edit/:id", moviesController.edit);
+router.get(baseUrl, moviesController.list);
+router.get(`${baseUrl}/new`, moviesController.newesMovies);
+router.get(`${baseUrl}/recommended`, moviesController.recomended);
+router.get(`${baseUrl}/detail/:id`, moviesController.detail);
+router.get(`${baseUrl}/add`, moviesController.add);
+router.get(`${baseUrl}/edit/:id`, moviesController.edit);
 
 router.post(
-  "/movies/create",
+  `${baseUrl}/create`,
   validateMoviesAddNoEmpty,
   moviesController.create
 );
 router.post(
-  "/movies/update/:id",
+  `${baseUrl}/update/:id`,
   validateMoviesAddNoEmpty,
   moviesController.update
 );
-router.post("movies/delete/:id", moviesController.deleteMovie);
+router.post(`${baseUrl}/delete/:id`, moviesController.deleteMovie);
+
+//Api routes
+router.get(apiBaseUrl, moviesController.apiList);
+router.get(`${apiBaseUrl}/detail/:id`, moviesController.apiDetail);
 
 module.exports = router;
