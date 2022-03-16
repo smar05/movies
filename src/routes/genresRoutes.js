@@ -9,7 +9,7 @@ router.get(baseUrl, genresController.list);
 router.get(`${baseUrl}/detail/:id`, genresController.detail);
 
 //Api routes
-router.get(apiBaseUrl, moviesController.apiList);
-router.get(`${apiBaseUrl}/detail/:id`, moviesController.apiDetail);
+router.get(apiBaseUrl, genresController.apiList);
+router.get(`${apiBaseUrl}/detail/:id`, genresController.apiDetail);
 
 module.exports = router;
