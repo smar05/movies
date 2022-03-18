@@ -35,8 +35,4 @@ router.post(
 );
 router.post(`${baseUrl}/delete/:id`, moviesController.deleteMovie);
 
-//Api routes
-router.get(apiBaseUrl, moviesController.apiList);
-router.get(`${apiBaseUrl}/detail/:id`, moviesController.apiDetail);
-
 module.exports = router;

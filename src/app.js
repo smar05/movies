@@ -5,6 +5,10 @@ const indexRouter = require("./routes/index");
 
 const moviesRoutes = require("./routes/moviesRoutes");
 const genresRoutes = require("./routes/genresRoutes");
+//API routes
+const moviesAPIRoutes = require("./routes/api/moviesAPIRoutes.js");
+const genresAPIRoutes = require("./routes/api/genresAPIRoutes.js");
+
 const app = express();
 
 // view engine setup
@@ -19,5 +23,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", indexRouter);
 app.use(moviesRoutes);
 app.use(genresRoutes);
+
+//API routes
+app.use(moviesAPIRoutes);
+app.use(genresAPIRoutes);
 
 app.listen("3001", () => console.log("Servidor corriendo en el puerto 3001"));
